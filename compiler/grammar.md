@@ -7,38 +7,41 @@ A newline inside of brackets is equal to a | operator unless preceded by a diffe
 -- is a comment
 ```
 ```haskell
-expr = literal | grouping | unary | binary | comment | attribute | keyword_expr | block | dict | doc
+expr = literal | tuple | unary | binary | comment | attribute | keyword_expr | block | dict | doc
 
-literal = IDENTIFIER | STRING | NUMBER | "true" | "false"
-grouping = "(" expr ")"
+run_fn = literal ("(" (expr ","?) * ")")
+run_macro = literal ("[" | "{" | "<") (-) ("]" | "}" | "<")
+literal = (IDENTIFIER | STRING | NUMBER | "true" | "false")
+tuple = "(" expr ")"
 unary = (
     ("!" | "-") expr
     -- expr ( "x" | "x" )
 )
-binary = expr (
+binary = (expr (
     "+" | "-" | "*" | "/"                                   -- Arithmatic
     "&" | "|" | ">" | "<" | ">" | ">=" | "=<"               -- Comparison
     "?"                                                     -- Other
     -- TODO: maybe change |= syntax?
     "=" | "+=" | "-=" | "*=" | "/=" | "?=" | "&=" | "|="    -- Assignments
-) expr
+) expr)
 comment = (
     "//" ~ "\n" -- Single line
-    "/*" ~ "*/" -- Multi line
+    "/*" ~ ("*/" escape "\\") -- Multi line
 )
 doc = (
-    "#doc" ~ "#\doc"
+    "#doc" ~ ("#/doc" escape "\\")
 )
 attribute = "\n"("#[" | "#![") expr ("]") -- Attribute (! for pup level)
 keyword_expr = (
-    "if" expr block ("else" block)?
-    "for" expr block
+    "if" expr expr ("else" expr)?
+    "for" expr expr
     expr "in" expr
-    "while" expr block
+    "while" expr expr
+    ("pub" | "pub(pup)")? "fn" expr expr
+    "proceed" expr
+    "cotime" expr
 )
 
 block = "{" expr "}"
 dict = "{" (expr (":" expr)? "=" expr)... "}"
-
-NOTE keywords = "[ if else for in while ]"
 ```
