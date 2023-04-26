@@ -7,7 +7,7 @@ A newline inside of brackets is equal to a | operator unless preceded by a diffe
 -- is a comment
 ```
 ```haskell
-expr = literal | grouping | unary | binary | comment | attribute | keyword_expr | block | dict
+expr = literal | grouping | unary | binary | comment | attribute | keyword_expr | block | dict | doc
 
 literal = IDENTIFIER | STRING | NUMBER | "true" | "false"
 grouping = "(" expr ")"
@@ -16,16 +16,20 @@ unary = (
     -- expr ( "x" | "x" )
 )
 binary = expr (
-    "+" | "-" | "*" | "/"                        -- Arithmatic
-    "&" | "|" | ">" | "<" | ">" | ">=" | "=<"    -- Comparison
-    "?" |
-    "=" -- set
+    "+" | "-" | "*" | "/"                                   -- Arithmatic
+    "&" | "|" | ">" | "<" | ">" | ">=" | "=<"               -- Comparison
+    "?"                                                     -- Other
+    -- TODO: maybe change |= syntax?
+    "=" | "+=" | "-=" | "*=" | "/=" | "?=" | "&=" | "|="    -- Assignments
 ) expr
 comment = (
     "//" ~ "\n" -- Single line
     "/*" ~ "*/" -- Multi line
 )
-attribute = ("#[" | "#![") expr ("]\n") -- Attribute (! for pup level)
+doc = (
+    "#doc" ~ "#\doc"
+)
+attribute = "\n"("#[" | "#![") expr ("]") -- Attribute (! for pup level)
 keyword_expr = (
     "if" expr block ("else" block)?
     "for" expr block
