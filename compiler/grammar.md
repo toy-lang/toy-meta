@@ -9,7 +9,7 @@ A newline inside of brackets is equal to a | operator unless preceded by a diffe
 ```haskell
 expr = literal | grouping | unary | binary | comment | attribute
 
-literal = IDENTIFIER | STRING or NUMBER or "true" or "false"
+literal = IDENTIFIER | STRING | NUMBER | "true" | "false"
 grouping = "(" expr ")"
 unary = (
     ("!" | "-") expr
