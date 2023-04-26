@@ -40,5 +40,5 @@ keyword_expr = (
 block = "{" expr "}"
 dict = "{" (expr (":" expr)? "=" expr)... "}"
 
-NOTE keywords = [ if else for in while ]
+NOTE keywords = "[ if else for in while ]"
 ```
