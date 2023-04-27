@@ -28,4 +28,6 @@ attribute = "#[" attr_caller "]"
 attr_caller = idn ( "(" attr_caller? "," * ")" )?
 fn = ( "pub" | "pub(pup)" )? "fn"
 decl = "let" "mut"? expr ( ":" expr )? ( "=" expr )?
+proceed = "proceed" expr
+await = "await" expr
 ```
