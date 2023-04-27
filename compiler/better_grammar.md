@@ -21,9 +21,9 @@ unary = ( "!" | "-" )? unary | primary
 primary = expr
 
 -- KEYWORDS/SIMILAR
-import = "import" STRING ("as" expr)?
+_import = "import" STRING ( "as" expr )? -- ignore the _ , its for syntax highlighting
 pup_attribute = "#![" attr_caller "]"
 attribute = "#[" attr_caller "]"
 attr_caller = IDENTIFIER ("(" attr_caller? "," * ")")?
-fn = ("pub" | "pub(pup)")? "fn" 
+fn = ( "pub" | "pub(pup)" )? "fn" 
 ```
