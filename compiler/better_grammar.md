@@ -1,12 +1,12 @@
 # less ambiguous grammar
 
-oh crap this is gonna take a long time...
+for a shorter read, use `grammar.md`.
 
 ```haskell
-root_body = import
-class_body = _
+root_body = ( ( import ) ";"? ) | ""
+code_body = ( ( expr ) ";"? ) | ""
 
-expr = caller | tuple | op | STRING | NUMBER | ARRAY | "true" | "false"
+expr = caller | tuple | op | STRING | NUMBER | ARRAY | "true" | "false" | decl
 caller = IDENTIFIER"!"? tuple
 tuple = ("(" expr ("," expr) * ")")
 
@@ -25,5 +25,6 @@ _import = "import" STRING ( "as" expr )? -- ignore the _ , its for syntax highli
 pup_attribute = "#![" attr_caller "]"
 attribute = "#[" attr_caller "]"
 attr_caller = IDENTIFIER ( "(" attr_caller? "," * ")" )?
-fn = ( "pub" | "pub(pup)" )? "fn" 
+fn = ( "pub" | "pub(pup)" )? "fn"
+decl = "let" "mut"? expr ( ":" expr )? ( "=" expr )?
 ```
