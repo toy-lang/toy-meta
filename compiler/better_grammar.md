@@ -12,7 +12,7 @@ tuple = ("(" expr ("," expr) * ")")
 
 -- Ops
 op = equality
-equality = comparison (( "==" | "!=" ) comparison)? * -- Big thanks to crafting interpreters for helping with this part <3
+equality = comparison ( ( "==" | "!=" ) comparison )? * -- Big thanks to crafting interpreters for helping with this part <3
 comparison = term ( ( ">", ">=", "<" "<=" ) term )? *
 term = factor ( ( "-" | "+" ) factor )? *
 factor = pow ( ( "*" | "/" ) pow )? *
