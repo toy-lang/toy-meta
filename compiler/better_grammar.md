@@ -6,8 +6,9 @@ for a shorter read, use `grammar.md`.
 root_body = ( ( import ) ";"? ) | ""
 code_body = ( ( expr ) ";"? ) | ""
 
+idn = IDENTIFIER ( "::" INDENTIFIER )? * ( "." INDENTIFER )?
 expr = caller | tuple | op | STRING | NUMBER | ARRAY | "true" | "false" | decl
-caller = IDENTIFIER"!"? tuple
+caller = idn"!"? tuple
 tuple = ("(" expr ("," expr) * ")")
 
 -- Ops
@@ -24,7 +25,7 @@ primary = expr
 _import = "import" STRING ( "as" expr )? -- ignore the _ , its for syntax highlighting
 pup_attribute = "#![" attr_caller "]"
 attribute = "#[" attr_caller "]"
-attr_caller = IDENTIFIER ( "(" attr_caller? "," * ")" )?
+attr_caller = idn ( "(" attr_caller? "," * ")" )?
 fn = ( "pub" | "pub(pup)" )? "fn"
 decl = "let" "mut"? expr ( ":" expr )? ( "=" expr )?
 ```
