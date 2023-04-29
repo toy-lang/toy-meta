@@ -22,7 +22,7 @@ unary = ( "!" | "-" )? unary | primary
 primary = expr
 
 -- KEYWORDS/SIMILAR
-_import = "import" STRING ( "as" expr )? -- ignore the _ , its for syntax highlighting
+_import = "import" expr ( "as" expr )? -- ignore the _ , its for syntax highlighting
 pup_attribute = "#![" attr_caller "]"
 attribute = "#[" attr_caller "]"
 attr_caller = idn ( "(" attr_caller? "," * ")" )?
